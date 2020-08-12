@@ -1,7 +1,7 @@
 pipeline {
   environment {
     registryName = "ovoh1"
-    registry = "ovoh1/book-inventory"
+    registry = "ovoh1/book-inventory-api"
     registryCredential = 'dockerhub'
     dockerImage = ''
   }
