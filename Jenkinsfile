@@ -34,8 +34,8 @@ pipeline {
       }
     }
     stage('Deploy Container on Aws'){
-    def dockerRun = 'docker run -p 5000:5000 -d --name book-inventory-api dockerImage'
     steps{
+      def dockerRun = 'docker run -p 5000:5000 -d --name book-inventory-api dockerImage'
       sshagent(['aws-server']) {
         sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.1.137 ${dockerRun}"
          }
