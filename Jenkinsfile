@@ -12,7 +12,7 @@ pipeline {
         git 'https://github.com/lovely-007/book-inventory-api.git'
       }
     }
-    stage('Build jar') {
+    stage('Building jar') {
       steps {
        bat 'mvn clean install'
       }
@@ -24,7 +24,7 @@ pipeline {
         }
       }
     }
-    stage('Deploy Image') {
+    stage('Deploying image to Docker Hub') {
       steps{
         script {
           docker.withRegistry( '', registryCredential ) {
@@ -32,6 +32,12 @@ pipeline {
           }
         }
       }
+    }
+    stage('Deploy Container on Aws'){
+     def dockerRun = 'docker run -p 5000:5000 -d -name book-inventory-api dockerImage'
+     sshagent(['aws-server']) {
+       sh "ssh -o StrictHostKeyChecking=no ec2-user@10.0.1.137 ${dockerRun}"
+     }
     }
   }
 }
