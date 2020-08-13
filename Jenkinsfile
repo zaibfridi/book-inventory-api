@@ -14,7 +14,9 @@ pipeline {
     }
     stage('Building jar') {
       steps {
+       withMaven{
        sh 'mvn clean install'
+       }
       }
     }
     stage('Building image') {
