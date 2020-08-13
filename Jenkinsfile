@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/Egwonor/book-inventory-api.git'
+        git 'https://github.com/lovely-007/book-inventory-api.git'
       }
     }
     stage('Building jar') {
