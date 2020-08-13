@@ -33,15 +33,5 @@ pipeline {
         }
       }
     }
-    stage('Deploy Container on Aws'){
-    environment{
-      dockerRun = 'docker run -p 5000:5000 -d --name book-inventory-api dockerImage'
-     }
-    steps{
-      sshagent(['aws-server']) {
-        sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.59.197 ${dockerRun}"
-         }
-       }
-     }
   }
 }
