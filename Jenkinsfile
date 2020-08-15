@@ -41,8 +41,8 @@ pipeline {
           TASK_FAMILY="book-inventory"
 
           # Create a new task definition for this build
-          sed -e "s;%BUILD_NUMBER%;${BUILD_NUMBER};g" /home/bitnami/book-inventory/task-def-book-inventory.json > /home/bitnami/book-inventory/task-def-book-inventory-v_${BUILD_NUMBER}.json
-          aws ecs register-task-definition --family book-inventory --cli-input-json file:///home/bitnami/book-inventory/task-def-book-inventory-v_${BUILD_NUMBER}.json
+          sed -e "s;%BUILD_NUMBER%;${BUILD_NUMBER};g" task-def-book-inventory.json > task-def-book-inventory-v_${BUILD_NUMBER}.json
+          aws ecs register-task-definition --family book-inventory --cli-input-json task-def-book-inventory-v_${BUILD_NUMBER}.json
 
           # Update the service with the new task definition and desired count
           TASK_REVISION=`aws ecs describe-task-definition --task-definition book-inventory | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
