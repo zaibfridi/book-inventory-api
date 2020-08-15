@@ -47,11 +47,7 @@ pipeline {
           # Update the service with the new task definition and desired count
           TASK_REVISION=`aws ecs describe-task-definition --task-definition task-fargate-b | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
           echo $TASK_REVISION
-          DESIRED_COUNT=`aws ecs describe-services --services ${SERVICE_NAME} | egrep "desiredCount" | head -1 | tr "/" " " | awk '{print $2}' | sed 's/,$//'`
-          echo $DESIRED_COUNT
-          if [ ${DESIRED_COUNT} = "0" ]; then
-              DESIRED_COUNT="1"
-          fi
+          DESIRED_COUNT="1"
 
           aws ecs update-service --cluster default --service ${SERVICE_NAME} --task-definition ${TASK_FAMILY} --desired-count ${DESIRED_COUNT}'''
       }
