@@ -36,7 +36,7 @@ pipeline {
     stage('Start Task on ECS Cluster') {
       steps{
         sh '''#!/bin/bash -x
-          SERVICE_NAME="fargate-service-b"
+          SERVICE_NAME="service-c-1"
           IMAGE_VERSION="v_"${BUILD_NUMBER}
           TASK_FAMILY="ecs-fargate-c"
 
