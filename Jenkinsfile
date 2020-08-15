@@ -33,7 +33,7 @@ pipeline {
         }
       }
     }
-    stage('Start task on ECS cluster') {
+    stage('Start Task on ECS Cluster') {
       steps{
         sh '''#!/bin/bash -x
           SERVICE_NAME="book-inventory-service"
