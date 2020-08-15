@@ -49,7 +49,7 @@ pipeline {
           echo $TASK_REVISION
           DESIRED_COUNT="1"
 
-          aws ecs update-service --cluster default --service ${SERVICE_NAME} --task-definition ${TASK_FAMILY} --desired-count ${DESIRED_COUNT}'''
+          aws ecs update-service --cluster ecs-fargate --service ${SERVICE_NAME} --task-definition ${TASK_FAMILY} --desired-count ${DESIRED_COUNT}'''
       }
     }
     stage('Remove Unused docker image') {
