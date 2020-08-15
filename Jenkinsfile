@@ -36,16 +36,16 @@ pipeline {
     stage('Start Task on ECS Cluster') {
       steps{
         sh '''#!/bin/bash -x
-          SERVICE_NAME="book-inventory-service"
+          SERVICE_NAME="fargate-service-b"
           IMAGE_VERSION="v_"${BUILD_NUMBER}
-          TASK_FAMILY="book-inventory"
+          TASK_FAMILY="task-fargate-b"
 
           # Create a new task definition for this build
-          sed -e "s;%BUILD_NUMBER%;${BUILD_NUMBER};g" task-def-book-inventory.json > task-def-book-inventory-v_${BUILD_NUMBER}.json
-          aws ecs register-task-definition --family book-inventory --cli-input-json task-def-book-inventory-v_${BUILD_NUMBER}.json
+          sed -e "s;%BUILD_NUMBER%;${BUILD_NUMBER};g" task-def-fargate.json > task-def-fargate-v_${BUILD_NUMBER}.json
+          aws ecs register-task-definition --cli-input-json task-def-fargate-v_${BUILD_NUMBER}.json
 
           # Update the service with the new task definition and desired count
-          TASK_REVISION=`aws ecs describe-task-definition --task-definition book-inventory | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
+          TASK_REVISION=`aws ecs describe-task-definition --task-definition task-fargate-b | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
           echo $TASK_REVISION
           DESIRED_COUNT=`aws ecs describe-services --services ${SERVICE_NAME} | egrep "desiredCount" | head -1 | tr "/" " " | awk '{print $2}' | sed 's/,$//'`
           echo $DESIRED_COUNT
