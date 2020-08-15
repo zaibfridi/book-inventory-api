@@ -1,0 +1,33 @@
+{
+    "family": "book-inventory",
+    "taskRoleArn": "arn:aws:iam::095861561296:role/ecs-task-role",
+    "executionRoleArn": "arn:aws:iam::095861561296:role/ecs-service-role-for-ec2",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+        {
+            "image": "zaibfridi/book-inventory:v_%BUILD_NUMBER%",
+            "name": "book-inventory",
+            "cpu": 2,
+            "memory": 1074,
+            "essential": true,
+            "portMappings": [
+                {
+                    "containerPort": 5000,
+                    "hostPort": 5000,
+                    "protocol": "tcp"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/book-inventory",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ],
+    "requiresCompatibilities": [
+        "EC2"
+    ]
+}
