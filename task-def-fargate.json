@@ -20,14 +20,14 @@
                 "logConfiguration": {
                     "logDriver": "awslogs",
                     "options": {
-                        "awslogs-group": "/ecs/task-fargate-b",
+                        "awslogs-group": "/ecs/task-fargate-a",
                         "awslogs-region": "us-east-1",
                         "awslogs-stream-prefix": "ecs"
                     }
                 }
             }
         ],
-        "family": "task-fargate-b",
+        "family": "task-fargate-a",
         "taskRoleArn": "arn:aws:iam::095861561296:role/ecs-task-role",
         "executionRoleArn": "arn:aws:iam::095861561296:role/ecs-task-role",
         "networkMode": "awsvpc",

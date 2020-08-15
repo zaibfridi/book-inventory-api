@@ -38,14 +38,14 @@ pipeline {
         sh '''#!/bin/bash -x
           SERVICE_NAME="fargate-service-b"
           IMAGE_VERSION="v_"${BUILD_NUMBER}
-          TASK_FAMILY="task-fargate-b"
+          TASK_FAMILY="task-fargate-a"
 
           # Create a new task definition for this build
           sed -e "s;%BUILD_NUMBER%;${BUILD_NUMBER};g" task-def-fargate.json > task-def-fargate-v_${BUILD_NUMBER}.json
           aws ecs register-task-definition --cli-input-json file://task-def-fargate-v_${BUILD_NUMBER}.json
 
           # Update the service with the new task definition and desired count
-          TASK_REVISION=`aws ecs describe-task-definition --task-definition task-fargate-b | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
+          TASK_REVISION=`aws ecs describe-task-definition --task-definition task-fargate-a | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
           echo $TASK_REVISION
           DESIRED_COUNT="1"
 
